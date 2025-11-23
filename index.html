@@ -32,6 +32,32 @@
         .bg-gray-100 { background-color: #F7FAFC; } .border-gray-400 { border-color: #CBD5E0; }
         .bg-fuchsia-100 { background-color: #FDF2F8; } .border-fuchsia-400 { border-color: #D946EF; }
         .bg-sky-100 { background-color: #F0F9FF; } .border-sky-400 { border-color: #38BDF8; }
+        
+        /* Drag and Drop Specific Styles */
+        .draggable {
+            cursor: grab;
+            transition: transform 0.1s;
+        }
+        .draggable:active {
+            cursor: grabbing;
+        }
+        .drop-target {
+            min-width: 150px;
+            min-height: 44px;
+            transition: all 0.2s;
+        }
+        .drag-over {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 4px #06b6d4; /* cyan-500 ring */
+        }
+        .correct {
+            border-color: #10b981 !important; /* emerald-500 */
+            background-color: #d1fae5 !important; /* emerald-100 */
+        }
+        .incorrect {
+            border-color: #ef4444 !important; /* red-500 */
+            background-color: #fee2e2 !important; /* red-100 */
+        }
 
     </style>
 </head>
@@ -192,7 +218,6 @@
           },
           {
             id: 'professional',
-            // RENAMED TAB TEXT: Appending the new tab label to the title structure to ensure it is displayed correctly
             title: "4. Aproveitar in Professional Settings = business meetings - interview and presentation", 
             subtitle: "Meaning: Using formal and strategic equivalents for business, interviews, and presentations.",
             blocks: [
@@ -230,6 +255,54 @@
               },
             ],
           },
+          // --- NEW MODULE: DRAG & DROP EXERCISE ---
+          {
+            id: 'exercise',
+            title: "5. Aproveitar = Drag & Drop Exercise (Advanced)",
+            subtitle: "Match the Portuguese sentence to its most appropriate English translation by dragging the colored tiles into the drop zones.",
+            blocks: [], // Content is rendered dynamically by renderExerciseUI
+            exerciseData: [
+                {
+                    pt: "Eu me aproveitei das férias para ler todos os livros que eu queria.",
+                    correctEnglish: 'To Make the Most Of',
+                    conceptId: 'flexible-use',
+                },
+                {
+                    pt: "A empresa precisa aproveitar a baixa taxa de juros para expandir.",
+                    correctEnglish: 'To Capitalize On',
+                    conceptId: 'strategic-use',
+                },
+                {
+                    pt: "Aproveite o seu bolo de aniversário!",
+                    correctEnglish: 'To Enjoy / Have Fun',
+                    conceptId: 'direct-use',
+                },
+                {
+                    pt: "Se você se atrasar, vou aproveitar a sua vaga de estacionamento.",
+                    correctEnglish: 'To Take Advantage Of',
+                    conceptId: 'primary-equivalent',
+                },
+                {
+                    pt: "Devemos aproveitar o calor da máquina para aquecer a sala vizinha.",
+                    correctEnglish: 'To Use / To Utilize',
+                    conceptId: 'practical-use',
+                },
+                {
+                    pt: "Ela aproveitou a chance para se desculpar durante a pausa.",
+                    correctEnglish: 'To Seize the Opportunity',
+                    conceptId: 'seize-opportunity',
+                }
+            ],
+            // The draggable terms the user must match
+            draggableTerms: [
+                { id: 'flexible-use', term: 'To Make the Most Of', color: 'bg-yellow-400 hover:bg-yellow-500' },
+                { id: 'strategic-use', term: 'To Capitalize On', color: 'bg-indigo-400 hover:bg-indigo-500' },
+                { id: 'direct-use', term: 'To Enjoy / Have Fun', color: 'bg-green-400 hover:bg-green-500' },
+                { id: 'primary-equivalent', term: 'To Take Advantage Of', color: 'bg-orange-400 hover:bg-orange-500' },
+                { id: 'practical-use', term: 'To Use / To Utilize', color: 'bg-teal-400 hover:bg-teal-500' },
+                { id: 'seize-opportunity', term: 'To Seize the Opportunity', color: 'bg-red-400 hover:bg-red-500' },
+            ]
+          }
         ];
 
         // --- State Management and Core Logic ---
@@ -262,6 +335,214 @@
                 </div>
             `;
         }
+        
+        // --- Drag and Drop Logic ---
+
+        let draggedElement = null;
+
+        function handleDragStart(e) {
+            draggedElement = e.target;
+            e.dataTransfer.setData('text/plain', e.target.id);
+            // Add a visual cue when dragging starts
+            setTimeout(() => {
+                e.target.classList.add('opacity-50', 'shadow-2xl');
+            }, 0);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault(); // Necessary to allow dropping
+            const target = e.currentTarget;
+            if (target.children.length === 0) {
+                target.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const dropTarget = e.currentTarget;
+            dropTarget.classList.remove('drag-over');
+            
+            // Only allow dropping if the spot is empty
+            if (dropTarget.children.length === 0 && draggedElement) {
+                // Remove visual cue from dragged element
+                draggedElement.classList.remove('opacity-50', 'shadow-2xl');
+                
+                // Append the draggable item to the drop zone
+                dropTarget.appendChild(draggedElement);
+                
+                // Disable dragging once dropped (it can be re-enabled later if moved)
+                draggedElement.draggable = false;
+            }
+        }
+        
+        function handleDragEnd(e) {
+            // Cleanup visual cues on drag end, regardless of drop success
+            e.target.classList.remove('opacity-50', 'shadow-2xl');
+            draggedElement = null;
+        }
+
+        function setupDragAndDropListeners() {
+            // Setup Draggable items
+            document.querySelectorAll('.draggable').forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+                item.draggable = true; // Ensure they are draggable
+            });
+
+            // Setup Drop targets
+            document.querySelectorAll('.drop-target').forEach(target => {
+                target.addEventListener('dragover', handleDragOver);
+                target.addEventListener('dragleave', handleDragLeave);
+                target.addEventListener('drop', handleDrop);
+            });
+
+            // Setup Check Button
+            document.getElementById('check-answers-btn')?.addEventListener('click', checkAnswers);
+            
+            // Setup Reset Button
+            document.getElementById('reset-answers-btn')?.addEventListener('click', resetExercise);
+        }
+
+        function resetExercise() {
+            const exerciseModule = modules.find(m => m.id === 'exercise');
+            if (!exerciseModule) return;
+
+            // Move all elements back to the draggable pool
+            const dropTargets = document.querySelectorAll('.drop-target');
+            const draggablePool = document.getElementById('draggable-pool');
+            
+            dropTargets.forEach(target => {
+                target.classList.remove('correct', 'incorrect');
+                while (target.firstChild) {
+                    const item = target.firstChild;
+                    item.draggable = true;
+                    draggablePool.appendChild(item);
+                }
+            });
+            
+            // Clear feedback
+            document.getElementById('feedback-message').innerHTML = '';
+            document.getElementById('feedback-message').classList.remove('bg-green-100', 'bg-red-100');
+            document.getElementById('check-answers-btn').classList.remove('hidden');
+        }
+
+        function checkAnswers() {
+            const dropTargets = document.querySelectorAll('.drop-target');
+            let correctCount = 0;
+
+            dropTargets.forEach(target => {
+                const droppedItem = target.querySelector('.draggable');
+                const correctId = target.getAttribute('data-correct-id');
+                
+                target.classList.remove('correct', 'incorrect');
+
+                if (droppedItem) {
+                    const droppedId = droppedItem.id;
+                    if (droppedId === correctId) {
+                        target.classList.add('correct');
+                        correctCount++;
+                    } else {
+                        target.classList.add('incorrect');
+                    }
+                } else {
+                    target.classList.add('incorrect'); // Penalize for empty drop zones
+                }
+            });
+
+            const total = dropTargets.length;
+            const score = `${correctCount}/${total}`;
+            const percentage = (correctCount / total) * 100;
+            const feedbackElement = document.getElementById('feedback-message');
+            
+            if (percentage === 100) {
+                feedbackElement.innerHTML = `🌟 Perfect Score! You got ${score} correct! You mastered 'Aproveitar'.`;
+                feedbackElement.className = 'p-4 rounded-xl text-lg font-bold text-green-700 bg-green-100 shadow-lg';
+                document.getElementById('check-answers-btn').classList.add('hidden');
+            } else {
+                feedbackElement.innerHTML = `Keep practicing! You scored ${score}. Review the blocks and try again!`;
+                feedbackElement.className = 'p-4 rounded-xl text-lg font-bold text-red-700 bg-red-100 shadow-lg';
+            }
+        }
+
+        // --- UI Generation for Exercise Module ---
+
+        function renderExerciseUI(activeModule) {
+            const { exerciseData, draggableTerms } = activeModule;
+            
+            // Shuffle draggable terms to prevent simple guessing
+            const shuffledDraggableTerms = [...draggableTerms].sort(() => Math.random() - 0.5);
+
+            // 1. Draggable Terms (Pool)
+            const draggableHtml = shuffledDraggableTerms.map(term => `
+                <div id="${term.id}" 
+                     class="draggable p-3 rounded-xl shadow-lg font-semibold text-white text-center cursor-grab transition-all 
+                            ${term.color} min-w-[180px]"
+                     draggable="true">
+                    ${term.term}
+                </div>
+            `).join('');
+
+            // 2. Drop Targets (Sentences)
+            const dropTargetHtml = exerciseData.map((data, index) => `
+                <div class="flex flex-col md:flex-row items-start md:items-center p-4 bg-white rounded-lg shadow-sm border border-gray-200 space-y-2 md:space-y-0 md:space-x-4">
+                    <!-- Portuguese Sentence -->
+                    <p class="font-medium text-gray-700 flex-1 min-w-[50%]">
+                        <span class="text-sm font-extrabold text-orange-600 mr-2">${index + 1}.</span>
+                        ${data.pt}
+                    </p>
+                    
+                    <!-- Drop Zone -->
+                    <div class="drop-target flex justify-center items-center w-full md:w-1/3 h-11 border-2 border-dashed border-cyan-400 bg-cyan-50/50 rounded-lg p-1"
+                         data-correct-id="${data.conceptId}">
+                        <!-- Dragged item goes here -->
+                        <span class="text-sm italic text-cyan-600">Drop Translation Here</span>
+                    </div>
+                    
+                    <!-- Hidden Answer for Review (optional, but helpful for learning) 
+                    <p class="text-xs text-green-500 hidden" data-answer-id="${data.conceptId}">
+                        Correct: ${data.correctEnglish}
+                    </p>
+                    -->
+                </div>
+            `).join('');
+
+            return `
+                <section class="max-w-4xl mx-auto space-y-8">
+                    <h3 class="text-2xl font-bold text-teal-700 border-b pb-2">Available Translations (Drag Them Below)</h3>
+                    
+                    <!-- Draggable Terms Pool -->
+                    <div id="draggable-pool" class="flex flex-wrap gap-4 p-4 bg-gray-100 rounded-xl shadow-inner border border-gray-300">
+                        ${draggableHtml}
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-teal-700 border-b pb-2 pt-6">Match Portuguese to English</h3>
+
+                    <!-- Drop Target List -->
+                    <div class="space-y-4">
+                        ${dropTargetHtml}
+                    </div>
+
+                    <!-- Action Buttons and Feedback -->
+                    <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
+                        <button id="check-answers-btn" class="px-6 py-3 bg-teal-600 text-white font-bold rounded-full shadow-lg hover:bg-teal-700 transition duration-200">
+                            Check Answers
+                        </button>
+                        <button id="reset-answers-btn" class="px-6 py-3 bg-gray-300 text-gray-800 font-bold rounded-full shadow-lg hover:bg-gray-400 transition duration-200">
+                            Reset Exercise
+                        </button>
+                    </div>
+
+                    <!-- Feedback Message -->
+                    <div id="feedback-message" class="text-center mt-6 p-0 transition-all duration-300">
+                        <!-- Score and feedback will appear here -->
+                    </div>
+                </section>
+            `;
+        }
 
         // Function to create the main application structure
         function renderApp() {
@@ -272,8 +553,7 @@
                 // Determine the button label. Split by ' = ' and take the second part (the English meaning/label)
                 const label = m.title.split(' = ')[1]; 
                 
-                // If there's no '=', the original title structure might be intact, but in this case, 
-                // the user request forces a change to fix the 'undefined' issue.
+                // Use the label if it exists, otherwise use the full title
                 const buttonText = label ? label : m.title; 
 
                 return `
@@ -291,22 +571,34 @@
                 `;
             }).join('');
 
-            // 2. Blocks (Map and Join)
-            const blocksHtml = activeModule.blocks.map(createBlockHTML).join('');
+            let mainContentHtml = '';
+            
+            // 2. Render content based on module type
+            if (activeModule.id === 'exercise') {
+                mainContentHtml = renderExerciseUI(activeModule);
+            } else {
+                // Standard Lego Block Modules
+                const blocksHtml = activeModule.blocks.map(createBlockHTML).join('');
+                const warningHtml = activeModule.warning ? `
+                    <section class="mt-12 p-6 bg-red-100 rounded-xl shadow-xl border-4 border-red-600">
+                        <h3 class="text-2xl font-black text-red-800 flex items-center mb-3">
+                            <span class="text-4xl mr-3">🚨</span> ${activeModule.warning.title}
+                        </h3>
+                        <p class="text-lg text-red-700 leading-relaxed">
+                            ${activeModule.warning.content}
+                        </p>
+                    </section>
+                ` : '';
+                
+                mainContentHtml = `
+                    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        ${blocksHtml}
+                    </section>
+                    ${warningHtml}
+                `;
+            }
 
-            // 3. Warning Block (Conditional)
-            const warningHtml = activeModule.warning ? `
-                <section class="mt-12 p-6 bg-red-100 rounded-xl shadow-xl border-4 border-red-600">
-                    <h3 class="text-2xl font-black text-red-800 flex items-center mb-3">
-                        <span class="text-4xl mr-3">🚨</span> ${activeModule.warning.title}
-                    </h3>
-                    <p class="text-lg text-red-700 leading-relaxed">
-                        ${activeModule.warning.content}
-                    </p>
-                </section>
-            ` : '';
-
-            // 4. Combined HTML for the entire application
+            // 3. Combined HTML for the entire application
             appContainer.innerHTML = `
                 <!-- Header and Navigation -->
                 <header class="sticky top-0 z-50 bg-white shadow-xl p-4 border-b-4 border-teal-500">
@@ -337,13 +629,8 @@
                             </p>
                         </section>
 
-                        <!-- Lego Block Grid -->
-                        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            ${blocksHtml}
-                        </section>
-                        
-                        <!-- Warning Block (if present) - High visual priority -->
-                        ${warningHtml}
+                        <!-- Dynamic Content Area -->
+                        ${mainContentHtml}
 
                     </div>
                 </main>
@@ -354,12 +641,17 @@
                 </footer>
             `;
 
-            // 5. Attach event listeners to new buttons
+            // 4. Attach event listeners
             document.querySelectorAll('#nav-container button').forEach(button => {
                 button.addEventListener('click', () => {
                     handleNavClick(button.getAttribute('data-module-id'));
                 });
             });
+            
+            // 5. Setup D&D listeners if it's the exercise module
+            if (activeModule.id === 'exercise') {
+                setupDragAndDropListeners();
+            }
 
             // Scroll to top
             window.scrollTo(0, 0); 
