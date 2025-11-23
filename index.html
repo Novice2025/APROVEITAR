@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aproveitar in English</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for ADHD accessibility */
+        body { font-family: 'Inter', sans-serif; }
+        .module-nav-item.active {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+            border-color: #ea580c; /* orange-600 */
+        }
+        /* Custom dynamic colors for consistency across different Tailwind shades */
+        .bg-blue-100 { background-color: #EBF8FF; } .border-blue-400 { border-color: #63B3ED; }
+        .bg-orange-100 { background-color: #FEFCBF; } .border-orange-400 { border-color: #F6AD55; }
+        .bg-red-100 { background-color: #FED7D7; } .border-red-400 { border-color: #F56565; }
+        .bg-indigo-100 { background-color: #EBF4FF; } .border-indigo-400 { border-color: #667EEA; }
+        .bg-yellow-100 { background-color: #FFFDE7; } .border-yellow-400 { border-color: #F6E05E; }
+        .bg-pink-100 { background-color: #FEE2F8; } .border-pink-400 { border-color: #ED64A6; }
+        .bg-green-100 { background-color: #E6FFFA; } .border-green-400 { border-color: #48BB78; }
+        .bg-purple-100 { background-color: #F3E8FF; } .border-purple-400 { border-color: #9F7AEA; }
+        .bg-cyan-100 { background-color: #E0F7FA; } .border-cyan-400 { border-color: #00BCD4; }
+        .bg-teal-100 { background-color: #E6FFFA; } .border-teal-400 { border-color: #38B2AC; }
+        .bg-lime-100 { background-color: #F7FFEE; } .border-lime-400 { border-color: #A0D36D; }
+        .bg-stone-100 { background-color: #F5F5F4; } .border-stone-400 { border-color: #A8A29E; }
+        .bg-gray-100 { background-color: #F7FAFC; } .border-gray-400 { border-color: #CBD5E0; }
+        .bg-fuchsia-100 { background-color: #FDF2F8; } .border-fuchsia-400 { border-color: #D946EF; }
+        .bg-sky-100 { background-color: #F0F9FF; } .border-sky-400 { border-color: #38BDF8; }
+
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 antialiased text-gray-800">
+
+    <div id="app-container">
+        <!-- Header will be dynamically rendered here -->
+        <!-- Main content will be dynamically rendered here -->
+    </div>
+
+    <script>
+        // --- Application Data: The Aproveitar Modules ---
+        const modules = [
+          {
+            id: 'advantage',
+            title: "1. Aproveitar = To Take Advantage Of",
+            subtitle: "Meaning: Seizing a good opportunity or a fleeting resource.",
+            blocks: [
+              {
+                icon: '💡',
+                title: 'Core Concept (Opportunities)',
+                content: 'Use a chance that is valuable and won\'t last long (like a discount, a sale, or a lucky break). Also applies to taking advantage of a positive situation.',
+                color: 'blue-100 border-blue-400',
+                examplePt: 'Eu vou aproveitar a promoção de passagens aéreas.',
+                exampleEn: 'I\'m going to take advantage of the flight sale.'
+              },
+              {
+                icon: '🎯',
+                title: 'Primary Equivalent (Most Common)',
+                content: 'The most direct and common phrase is: **To Take Advantage Of**. This is usually used when someone benefits from another person\'s absence, generosity, or error in a minor, non-malicious way.',
+                color: 'orange-100 border-orange-400',
+                examplePt: 'Aproveita que a chefe não está!',
+                exampleEn: 'Take advantage of the fact that the boss isn\'t here!'
+              },
+              {
+                icon: '⚡️',
+                title: 'Action Phrases (Seizing)',
+                content: 'When the action is sudden or urgent, use phrases like: **To Seize the Chance**, **To Seize the Opportunity**, or **To Seize the Golden Opportunity**.',
+                color: 'red-100 border-red-400',
+                examplePt: 'Temos que aproveitar a oportunidade agora!',
+                exampleEn: 'We have to seize the opportunity now!'
+              },
+              {
+                icon: '💰',
+                title: 'Strategic Use (Capitalize)',
+                content: 'When the action has a business, financial, or strategic outcome, use: **To Capitalize On**. This sounds calculated and formal.',
+                color: 'indigo-100 border-indigo-400',
+                examplePt: 'A empresa aproveitou o pico de vendas.',
+                exampleEn: 'The company capitalized on the sales peak.'
+              },
+              {
+                icon: '✅',
+                title: 'Flexible Use (Time/Resource)',
+                content: 'You can also say: **To Make the Most Of** when talking about time, experiences, or a limited resource (like a scholarship or a free trial).',
+                color: 'yellow-100 border-yellow-400',
+                examplePt: 'Aproveita o seu tempo livre!',
+                exampleEn: 'Make the most of your free time!'
+              }
+            ],
+            warning: {
+              title: 'DANGER WARNING: Negative Use',
+              content: 'Be careful! "To take advantage of" can be negative, meaning **to exploit or treat unfairly**. Always use it positively for opportunities/deals. Example of BAD use: He took advantage of his grandmother (he was cruel).',
+            },
+          },
+          {
+            id: 'enjoy',
+            title: "2. Aproveitar = To Enjoy / To Have a Good Time",
+            subtitle: "Meaning: Experiencing pleasure or fun during an activity.",
+            blocks: [
+              {
+                icon: '🥳',
+                title: 'Core Concept (Sensory & Pleasure)',
+                content: 'This is simple: when you are having fun, feeling happy, or experiencing something pleasurable (like a beautiful view or a delicious meal).',
+                color: 'pink-100 border-pink-400',
+                examplePt: 'Eu me aproveitei muito na festa de ontem.',
+                exampleEn: 'I had a really good time at the party yesterday.'
+              },
+              {
+                icon: '🎯',
+                title: 'English Equivalent (Direct Use)',
+                content: 'The main equivalents are: **To Enjoy** (followed by the thing) or **To Have a Good Time** (used generally).',
+                color: 'green-100 border-green-400',
+                examplePt: 'Aproveite o seu almoço!',
+                exampleEn: 'Enjoy your lunch!'
+              },
+              {
+                icon: '🗣️',
+                title: 'Usage Tip (Reflexive)',
+                content: 'When Portuguese uses the reflexive form (**"se aproveitar"**), English uses "to enjoy oneself" or "to have a good time." Do NOT use "take advantage of myself!"',
+                color: 'yellow-100 border-yellow-400',
+                examplePt: 'Eles se aproveitaram muito na praia.',
+                exampleEn: 'They enjoyed themselves a lot at the beach. / They had a lot of fun at the beach.'
+              },
+              {
+                icon: '👋',
+                title: 'Common Farewell (Informal)',
+                content: 'Used often in greetings or farewells: **Have fun! / Enjoy!** This is a very common translation in casual settings.',
+                color: 'purple-100 border-purple-400',
+                examplePt: 'Tchau! Aproveitem o show!',
+                exampleEn: 'Bye! Enjoy the show! / Have a great time at the show!'
+              },
+              {
+                icon: '🌟',
+                title: 'Wishing Well (Future/Formal)',
+                content: 'Used to wish someone enjoyment in a future event (like a trip, movie, or retirement).',
+                color: 'cyan-100 border-cyan-400',
+                examplePt: 'Espero que vocês aproveitem a viagem!',
+                exampleEn: 'I hope you enjoy the trip! / I hope you have a great time on the trip!'
+              }
+            ],
+          },
+          {
+            id: 'use',
+            title: "3. Aproveitar = To Use / To Utilize (Waste Reduction)",
+            subtitle: "Meaning: Making practical use of an item that might otherwise be discarded or wasted.",
+            blocks: [
+              {
+                icon: '♻️',
+                title: 'Core Concept (Practical Use)',
+                content: 'This is about being practical and not wasteful. It focuses on using up resources (like leftovers, scraps, or natural resources).',
+                color: 'teal-100 border-teal-400',
+                examplePt: 'Vamos aproveitar o resto do tecido para fazer uma capa.',
+                exampleEn: 'We are going to use the rest of the fabric to make a cover.'
+              },
+              {
+                icon: '🎯',
+                title: 'English Equivalent (Simplicity)',
+                content: 'The clearest translation is simply: **To Use** or **To Utilize**. (Keep it simple!)',
+                color: 'red-100 border-red-400',
+                examplePt: 'A gente aproveita tudo do animal, nada é jogado fora.',
+                exampleEn: 'We utilize everything from the animal, nothing is thrown away.'
+              },
+              {
+                icon: '👩‍🍳',
+                title: 'In the Kitchen (Leftovers)',
+                content: 'Often used with food or cooking leftovers (as in "waste not, want not").',
+                color: 'lime-100 border-lime-400',
+                examplePt: 'Aproveite as sobras para fazer sopa amanhã.',
+                exampleEn: 'Use the leftovers to make soup tomorrow.'
+              },
+              {
+                icon: '📚',
+                title: 'Knowledge/Skill Utilization',
+                content: 'It can also mean putting knowledge, skills, or experience to practical use.',
+                color: 'stone-100 border-stone-400',
+                examplePt: 'Ele aproveitou as aulas de história no projeto.',
+                exampleEn: 'He utilized the history lessons in the project.'
+              },
+              {
+                icon: '🚫',
+                title: 'What NOT to Say',
+                content: 'Do NOT say: "Take advantage of the leftovers." It sounds awkward and wrong. Stick to "Use." In English, "Take advantage of" almost always applies to situations, not physical leftovers.',
+                color: 'indigo-100 border-indigo-400',
+                examplePt: 'Aproveitaram a chuva para encher os baldes.',
+                exampleEn: 'They used the rain to fill the buckets.'
+              }
+            ],
+          },
+          {
+            id: 'professional',
+            // RENAMED TAB TEXT: Appending the new tab label to the title structure to ensure it is displayed correctly
+            title: "4. Aproveitar in Professional Settings = business meetings - interview and presentation", 
+            subtitle: "Meaning: Using formal and strategic equivalents for business, interviews, and presentations.",
+            blocks: [
+              {
+                icon: '📈',
+                title: 'Strategy & Investment (Capitalize)',
+                content: 'Use **To Capitalize On** when discussing market trends, investments, or strategic moves in formal meetings or reports. It suggests a smart business decision.',
+                color: 'gray-100 border-gray-400',
+                examplePt: 'Temos que aproveitar a nova regulamentação para entrar no mercado.',
+                exampleEn: 'We need to capitalize on the new regulation to enter the market.'
+              },
+              {
+                icon: '⌚',
+                title: 'Time & Agenda (Make the Most)',
+                content: 'Use **To Make the Most Of** when referring to maximizing the use of limited time (like a meeting agenda, conference slot, or deadline).',
+                color: 'stone-100 border-stone-400',
+                examplePt: 'Precisamos aproveitar bem os 30 minutos da reunião.',
+                exampleEn: 'We need to make the most of the 30 minutes in the meeting.'
+              },
+              {
+                icon: '🎤',
+                title: 'Interviews & Pitching (Seize)',
+                content: 'Use **To Seize the Opportunity** in high-stakes, verbal situations like job interviews, pitches, or Q&A sessions where you must act decisively.',
+                color: 'fuchsia-100 border-fuchsia-400',
+                examplePt: 'Eu aproveitei a chance para fazer uma pergunta ao CEO.',
+                exampleEn: 'I seized the opportunity to ask the CEO a question.'
+              },
+              {
+                icon: '📊',
+                title: 'Data & Experience (Leverage/Utilize)',
+                content: 'Use **To Utilize** or **To Leverage** (Leverage is stronger, meaning to use to maximum advantage) when discussing past results, data, or skills in a formal presentation or proposal.',
+                color: 'sky-100 border-sky-400',
+                examplePt: 'Aproveitamos os dados do ano passado para prever a demanda.',
+                exampleEn: 'We utilized/leveraged last year\'s data to forecast demand.'
+              },
+            ],
+          },
+        ];
+
+        // --- State Management and Core Logic ---
+        let activeModuleId = 'advantage';
+        const appContainer = document.getElementById('app-container');
+
+        // Function to create the HTML string for a single "Lego Block"
+        function createBlockHTML(block) {
+            return `
+                <div class="p-5 rounded-xl shadow-md transition duration-300 hover:shadow-lg flex flex-col space-y-3 
+                            bg-${block.color} border-2 border-opacity-75">
+                    
+                    <h3 class="text-xl font-extrabold flex items-center text-gray-800">
+                        <span class="text-3xl mr-3">${block.icon}</span>
+                        ${block.title}
+                    </h3>
+
+                    <p class="text-gray-700 font-medium whitespace-pre-wrap">
+                        ${block.content}
+                    </p>
+
+                    <div class="mt-3 p-3 bg-white/70 rounded-lg shadow-inner border border-dashed border-gray-300">
+                        <p class="text-sm italic text-blue-600">
+                            **P.T. Example:** ${block.examplePt}
+                        </p>
+                        <p class="text-sm font-semibold text-teal-700 mt-1">
+                            **E.N. Translation:** ${block.exampleEn}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to create the main application structure
+        function renderApp() {
+            const activeModule = modules.find(m => m.id === activeModuleId) || modules[0];
+            
+            // 1. Navigation Buttons (Map and Join)
+            const navHtml = modules.map(m => {
+                // Determine the button label. Split by ' = ' and take the second part (the English meaning/label)
+                const label = m.title.split(' = ')[1]; 
+                
+                // If there's no '=', the original title structure might be intact, but in this case, 
+                // the user request forces a change to fix the 'undefined' issue.
+                const buttonText = label ? label : m.title; 
+
+                return `
+                    <button
+                        data-module-id="${m.id}"
+                        class="module-nav-item 
+                            px-5 py-2 rounded-full font-bold text-sm shadow-md transition duration-300 ease-in-out
+                            ${activeModuleId === m.id 
+                                ? 'bg-orange-600 text-white active border-2 border-orange-700' 
+                                : 'bg-gray-100 text-gray-700 hover:bg-orange-100 border-2 border-gray-300'
+                            }"
+                    >
+                        ${buttonText.trim()}
+                    </button>
+                `;
+            }).join('');
+
+            // 2. Blocks (Map and Join)
+            const blocksHtml = activeModule.blocks.map(createBlockHTML).join('');
+
+            // 3. Warning Block (Conditional)
+            const warningHtml = activeModule.warning ? `
+                <section class="mt-12 p-6 bg-red-100 rounded-xl shadow-xl border-4 border-red-600">
+                    <h3 class="text-2xl font-black text-red-800 flex items-center mb-3">
+                        <span class="text-4xl mr-3">🚨</span> ${activeModule.warning.title}
+                    </h3>
+                    <p class="text-lg text-red-700 leading-relaxed">
+                        ${activeModule.warning.content}
+                    </p>
+                </section>
+            ` : '';
+
+            // 4. Combined HTML for the entire application
+            appContainer.innerHTML = `
+                <!-- Header and Navigation -->
+                <header class="sticky top-0 z-50 bg-white shadow-xl p-4 border-b-4 border-teal-500">
+                    <h1 class="text-3xl font-black text-teal-700 text-center">
+                        🇧🇷 Aproveitar in English 🇺🇸
+                    </h1>
+                    <p class="text-center text-sm text-gray-500 mt-1">
+                        Lego Block Method for Clarity
+                    </p>
+                    
+                    <!-- Navigation Bar (Clear, Distinct Buttons) -->
+                    <nav id="nav-container" class="mt-4 flex flex-wrap justify-center gap-3">
+                        ${navHtml}
+                    </nav>
+                </header>
+
+                <!-- Main Content Area -->
+                <main class="p-4 md:p-8 lg:p-12">
+                    <div class="max-w-6xl mx-auto">
+
+                        <!-- Module Title and Subtitle -->
+                        <section class="mb-8 p-6 bg-teal-50 rounded-2xl shadow-inner border-l-8 border-teal-500">
+                            <h2 class="text-3xl font-extrabold text-teal-800 mb-2">
+                                ${activeModule.title.split(' = ')[0]}
+                            </h2>
+                            <p class="text-xl text-gray-600 font-semibold">
+                                ${activeModule.subtitle}
+                            </p>
+                        </section>
+
+                        <!-- Lego Block Grid -->
+                        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            ${blocksHtml}
+                        </section>
+                        
+                        <!-- Warning Block (if present) - High visual priority -->
+                        ${warningHtml}
+
+                    </div>
+                </main>
+                
+                <!-- Footer -->
+                <footer class="p-4 mt-12 text-center text-sm text-gray-500 border-t bg-white">
+                    Aproveitar Study App | Designed for Clarity and Focus by @ Daby 2025
+                </footer>
+            `;
+
+            // 5. Attach event listeners to new buttons
+            document.querySelectorAll('#nav-container button').forEach(button => {
+                button.addEventListener('click', () => {
+                    handleNavClick(button.getAttribute('data-module-id'));
+                });
+            });
+
+            // Scroll to top
+            window.scrollTo(0, 0); 
+        }
+
+        // Function to handle navigation clicks
+        function handleNavClick(id) {
+            if (activeModuleId !== id) {
+                activeModuleId = id;
+                renderApp();
+            }
+        }
+
+        // Initial render on page load
+        window.onload = renderApp;
+
+    </script>
+</body>
+</html>
